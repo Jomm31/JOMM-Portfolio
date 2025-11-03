@@ -1,16 +1,15 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import Clouds from './components/Clouds.tsx';
+import Landscape from './components/Landscape.tsx';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
+    <div className="relative w-full h-screen bg-blue-100 overflow-hidden">
+            <Clouds />
+      <Landscape />
 
-    </>
-  )
+      {/* Your other portfolio content goes here */}
+    </div>
+  );
 }
 
-export default App
+export default App;
