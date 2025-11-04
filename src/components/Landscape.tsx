@@ -1,70 +1,84 @@
-import { useState, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+
+const VIDEO_SRC = '/Landscape.webm';
 
 const Landscape = () => {
+  const containerRef = useRef<HTMLDivElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [videoRatio, setVideoRatio] = useState<number | null>(null);
-  const [copiesPerSide, setCopiesPerSide] = useState(0);
+  const [tileCount, setTileCount] = useState(1);
 
-  useEffect(() => {
+  const indices = useMemo(() => {
+    const half = Math.floor(tileCount / 2);
+    return Array.from({ length: tileCount }, (_, i) => i - half);
+  }, [tileCount]);
+
+  const recalcTiles = useCallback(() => {
+    const container = containerRef.current;
     const video = videoRef.current;
-    if (!video) return;
 
-    const handleLoaded = () => setVideoRatio(video.videoWidth / video.videoHeight);
-    if (video.readyState >= 1) handleLoaded();
-    else video.addEventListener('loadedmetadata', handleLoaded);
+    if (!container || !video) return;
 
-    return () => video.removeEventListener('loadedmetadata', handleLoaded);
+    const baseWidth = video.getBoundingClientRect().width || video.videoWidth;
+    if (!baseWidth) return;
+
+    const raw = Math.ceil((container.offsetWidth + baseWidth) / baseWidth);
+    const normalized = raw % 2 === 0 ? raw + 1 : raw;
+
+    setTileCount((prev) => (prev !== normalized ? normalized : prev));
   }, []);
 
+  const handleLoadedMetadata = useCallback(() => {
+    recalcTiles();
+  }, [recalcTiles]);
+
   useEffect(() => {
-    if (!videoRatio) return;
+    recalcTiles();
 
-    const updateCopies = () => {
-      const video = videoRef.current;
-      if (!video) return;
-      const rect = video.getBoundingClientRect();
-      const renderedWidth = rect.width || rect.height * videoRatio;
-      const totalNeeded = Math.max(1, Math.ceil(window.innerWidth / renderedWidth));
-      const perSide = Math.max(0, Math.ceil((totalNeeded - 1) / 2));
-      setCopiesPerSide(perSide);
+    const handleResize = () => recalcTiles();
+    window.addEventListener('resize', handleResize);
+
+    const container = containerRef.current;
+    const observer =
+      container &&
+      new ResizeObserver(() => {
+        recalcTiles();
+      });
+
+    if (observer && container) observer.observe(container);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      if (observer) observer.disconnect();
     };
-
-    updateCopies();
-    window.addEventListener('resize', updateCopies);
-    return () => window.removeEventListener('resize', updateCopies);
-  }, [videoRatio]);
-
-  const baseAttrs = {
-    autoPlay: true,
-    loop: true,
-    muted: true,
-    playsInline: true,
-    preload: 'auto' as const,
-  };
-  const baseClass = 'h-full w-auto max-w-none object-cover flex-shrink-0';
-
-  const segments = [];
-  for (let offset = -copiesPerSide; offset <= copiesPerSide; offset += 1) {
-    const mirrored = Math.abs(offset) % 2 === 1;
-    const key =
-      offset === 0 ? 'center' : offset < 0 ? `left-${Math.abs(offset)}` : `right-${offset}`;
-    const className = `${baseClass}${mirrored ? ' scale-x-[-1]' : ''}`;
-
-    segments.push(
-      <video
-        key={key}
-        ref={offset === 0 ? videoRef : null}
-        {...baseAttrs}
-        className={className}
-        src="/Landscape.webm"
-      />,
-    );
-  }
+  }, [recalcTiles]);
 
   return (
-    <div className="relative w-full h-screen overflow-hidden bg-transparent">
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        {segments}
+    <div
+      ref={containerRef}
+      className="relative z-10 mt-[65px] flex w-full items-start justify-center overflow-hidden pb-[60px]"
+    >
+      <div className="flex items-end justify-center gap-0">
+        {indices.map((offset) => {
+          const mirrored = Math.abs(offset) % 2 === 1;
+
+          return (
+            <video
+              key={offset}
+              ref={offset === 0 ? videoRef : null}
+              src={VIDEO_SRC}
+              autoPlay
+              loop
+              muted
+              playsInline
+              onLoadedMetadata={offset === 0 ? handleLoadedMetadata : undefined}
+              className="block h-auto w-auto max-h-[888px] object-cover object-top mx-[-2px]"
+              style={{
+                transform: `scaleX(${mirrored ? -1 : 1})`,
+                transformOrigin: 'center',
+              }}
+            />
+          );
+        })}
       </div>
     </div>
   );
