@@ -34,7 +34,12 @@ const Landscape = () => {
   useEffect(() => {
     recalcTiles();
 
-    const handleResize = () => recalcTiles();
+    let resizeTimeout: number;
+    const handleResize = () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => recalcTiles(), 150);
+    };
+
     window.addEventListener('resize', handleResize);
 
     const container = containerRef.current;
@@ -48,6 +53,7 @@ const Landscape = () => {
 
     return () => {
       window.removeEventListener('resize', handleResize);
+      clearTimeout(resizeTimeout);
       if (observer) observer.disconnect();
     };
   }, [recalcTiles]);
@@ -70,8 +76,9 @@ const Landscape = () => {
               loop
               muted
               playsInline
+              preload="auto"
               onLoadedMetadata={offset === 0 ? handleLoadedMetadata : undefined}
-              className="block h-auto w-auto max-h-[888px] object-cover object-top mx-[-2px]"
+              className="block h-auto w-auto max-h-[888px] object-cover object-top mx-[-2px] will-change-transform"
               style={{
                 transform: `scaleX(${mirrored ? -1 : 1})`,
                 transformOrigin: 'center',

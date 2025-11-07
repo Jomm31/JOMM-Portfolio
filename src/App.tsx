@@ -2,7 +2,6 @@ import Clouds from './components/Clouds.tsx';
 import Header from './components/Header.tsx';
 import Home from './Home.tsx';
 
-
 function App() {
   return (
     <div className="relative w-full min-h-screen bg-blue-100">
