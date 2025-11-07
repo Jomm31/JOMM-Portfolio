@@ -1,1 +1,30 @@
 @import "tailwindcss";
+
+/* medium font */
+@font-face {
+  font-family: 'pixelGridM';
+  src: url('./assets/fonts/pixelgrid-squareboldm.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* small font */
+@font-face {
+  font-family: 'pixelGridS';
+  src: url('./assets/fonts/pixelgrid-squarebolds.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* large font */
+@font-face {
+  font-family: 'pixelGridL';
+  src: url('./assets/fonts/pixelgrid-squareboldxl.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* apply one of your fonts globally */
+body {
+  font-family: 'pixelGridM', sans-serif;
+}

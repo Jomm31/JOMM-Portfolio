@@ -55,7 +55,7 @@ const Landscape = () => {
   return (
     <div
       ref={containerRef}
-      className="relative z-10 mt-[65px] flex w-full items-start justify-center overflow-hidden pb-[60px]"
+      className="relative z-1 mt-[65px] flex w-full items-start justify-center overflow-hidden pb-[60px]"
     >
       <div className="flex items-end justify-center gap-0">
         {indices.map((offset) => {
