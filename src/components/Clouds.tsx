@@ -11,7 +11,7 @@ const Clouds = () => (
       transition={{ duration: 200, repeat: Infinity, ease: "linear" }}
     >
       {[0, 1, 2, 3].map((i) => (
-        <img key={i} src="/Clouds.png" alt="" className="h-full w-[2560px] flex-shrink-0" />
+        <img key={i} src="/Clouds.png" alt="" className="h-full w-[2174px] flex-shrink-0" />
       ))}
     </motion.div>
   </div>
