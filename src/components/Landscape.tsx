@@ -61,7 +61,7 @@ const Landscape = () => {
   return (
     <div
       ref={containerRef}
-      className="relative z-1 mt-[65px] flex w-full items-start justify-center overflow-hidden pb-[60px]"
+      className="relative z-1  flex w-full items-start justify-center overflow-hidden"
     >
       <div className="flex items-end justify-center gap-0">
         {indices.map((offset) => {
@@ -78,7 +78,7 @@ const Landscape = () => {
               playsInline
               preload="auto"
               onLoadedMetadata={offset === 0 ? handleLoadedMetadata : undefined}
-              className="block h-auto w-auto max-h-[888px] object-cover object-top mx-[-2px] will-change-transform"
+              className="block h-auto w-auto max-h-[888px] object-cover object-top mx-[-2px] will-change-transform mt-[70px]"
               style={{
                 transform: `scaleX(${mirrored ? -1 : 1})`,
                 transformOrigin: 'center',

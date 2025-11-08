@@ -1,31 +1,23 @@
 import { useRef } from 'react';
-import { motion } from 'framer-motion';
-import floatingImage from './assets/floating.webp';
+import FloatingCharacter from './components/FloatingCharacter.tsx';
 import Landscape from './components/Landscape.tsx';
-
-const FLOATING_DEFAULT = {
-  top: '46%',
-  left: '35%',
-};
 
 function Home() {
   const constraintsRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div ref={constraintsRef} className="relative w-full min-h-screen overflow-hidden">
-      <motion.img
-        src={floatingImage}
-        alt="Floating character"
-        drag
-        dragConstraints={constraintsRef}
-        dragElastic={0.1}
-        dragTransition={{ bounceStiffness: 300, bounceDamping: 20 }}
-        className="absolute z-10 w-150  -translate-x-1/2 -translate-y-1/2 cursor-grab active:cursor-grabbing will-change-transform"
-        style={{ top: FLOATING_DEFAULT.top, left: FLOATING_DEFAULT.left }}
-        whileHover={{ scale: 1.05 }}
-        whileDrag={{ scale: 1.1 }}
-      />
+    <div ref={constraintsRef} className="relative w-full h-[100vh] ">
       <Landscape />
+      <FloatingCharacter constraintsRef={constraintsRef}>
+        <div className="pointer-events-none flex flex-col gap-1 text-right text-white drop-shadow-md ml-4">
+          <h1 className="text-6xl leading-tight" style={{ fontFamily: 'pixelGridL' }}>
+            HI, I'M JOEMIRE<br />DAVE LOEREMAS
+          </h1>
+          <h6 className="text-2xl uppercase tracking-wide" style={{ fontFamily: 'pixelGridS' }}>
+            WEBSITE DEVELOPER | UI/UX DESIGNER
+          </h6>
+        </div>
+      </FloatingCharacter>
     </div>
   );
 }
