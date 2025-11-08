@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import floatingImage from '../assets/floating.webp';
 
 const FLOATING_DEFAULT = {
-  top: '300px',
+  top: '380px',
   left: '50%',
 };
 
