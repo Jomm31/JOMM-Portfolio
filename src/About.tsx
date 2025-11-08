@@ -1,6 +1,6 @@
 function About() {
   return (
-    <section id="about" className="relative w-full min-h-screen bg-gradient-to-b from-[#6CDAEA] to-[#4A9FBF] py-20 px-6 mt-[100vh]">
+    <section id="about" className="relative w-full min-h-screen bg-gradient-to-b from-[#6CDAEA] to-[#4A9FBF] py-20 px-6">
       <div className="mx-auto max-w-6xl">
         {/* Section Title */}
         <h2

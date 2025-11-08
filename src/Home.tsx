@@ -7,13 +7,11 @@ import telegram from './assets/socials/telegram.png'
 import linkedin from './assets/socials/linkedin.png'
 import gmail from './assets/socials/gmail.png'
 
-
-
 function Home() {
   const constraintsRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div ref={constraintsRef} className="relative w-full h-[100vh] overflow-hidden">
+    <div ref={constraintsRef} className="relative w-full min-h-screen overflow-hidden">
       <Landscape />
       <FloatingCharacter constraintsRef={constraintsRef}>
         <div className="pointer-events-none flex flex-col gap-2 md:gap-3 text-center md:text-right text-white drop-shadow-md w-full md:ml-4">
