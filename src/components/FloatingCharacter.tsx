@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import floatingImage from '../assets/floating.webp';
 
 const FLOATING_DEFAULT = {
-  top: '380px',
+  top: '240px',
   left: '50%',
 };
 
@@ -26,9 +26,11 @@ function FloatingCharacter({ constraintsRef, defaultPosition = FLOATING_DEFAULT,
         dragConstraints={constraintsRef}
         dragElastic={0.1}
         dragTransition={{ bounceStiffness: 300, bounceDamping: 20 }}
-        className="w-32 sm:w-40 md:w-150 max-w-[40vw] md:max-w-[35vw] flex-shrink-0 cursor-grab active:cursor-grabbing will-change-transform"
+        className="w-32 sm:w-40 md:w-150 max-w-[40vw] md:max-w-[35vw] flex-shrink-0 cursor-grab active:cursor-grabbing"
+        style={{ willChange: 'transform' }}
         whileHover={{ scale: 1.05 }}
         whileDrag={{ scale: 1.1 }}
+        loading="eager"
       />
       {children}
     </div>
