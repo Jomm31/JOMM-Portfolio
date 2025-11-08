@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import floatingImage from '../assets/floating.webp';
 
 const FLOATING_DEFAULT = {
-  top: '50%',
+  top: '300px',
   left: '50%',
 };
 
@@ -16,7 +16,7 @@ type FloatingCharacterProps = {
 function FloatingCharacter({ constraintsRef, defaultPosition = FLOATING_DEFAULT, children }: FloatingCharacterProps) {
   return (
     <div
-      className="absolute z-10 flex w-[90vw] max-w-[1400px] flex-col md:flex-row items-center gap-6 md:gap-10 -translate-x-1/2 -translate-y-1/2 px-4"
+      className="absolute z-10 flex w-[90vw] max-w-[1400px] flex-col md:flex-row items-center gap-6 md:gap-10 -translate-x-1/2 px-4"
       style={{ top: defaultPosition.top, left: defaultPosition.left }}
     >
       <motion.img

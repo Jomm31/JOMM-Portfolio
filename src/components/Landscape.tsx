@@ -78,7 +78,7 @@ const Landscape = () => {
               playsInline
               preload="auto"
               onLoadedMetadata={offset === 0 ? handleLoadedMetadata : undefined}
-              className="block h-auto w-auto max-h-[888px] object-cover object-top mx-[-2px] will-change-transform mt-[70px]"
+              className="block h-[888px] w-auto object-cover object-top mx-[-2px] will-change-transform mt-[70px]"
               style={{
                 transform: `scaleX(${mirrored ? -1 : 1})`,
                 transformOrigin: 'center',
