@@ -3,6 +3,11 @@ import { motion } from 'framer-motion';
 import floatingImage from './assets/floating.webp';
 import Landscape from './components/Landscape.tsx';
 
+const FLOATING_DEFAULT = {
+  top: '46%',
+  left: '35%',
+};
+
 function Home() {
   const constraintsRef = useRef<HTMLDivElement>(null);
 
@@ -15,8 +20,8 @@ function Home() {
         dragConstraints={constraintsRef}
         dragElastic={0.1}
         dragTransition={{ bounceStiffness: 300, bounceDamping: 20 }}
-        className="absolute left-1/2 top-1/2 z-10 w-150 cursor-grab active:cursor-grabbing will-change-transform"
-        style={{ x: '-50%', y: '-50%' }}
+        className="absolute z-10 w-150  -translate-x-1/2 -translate-y-1/2 cursor-grab active:cursor-grabbing will-change-transform"
+        style={{ top: FLOATING_DEFAULT.top, left: FLOATING_DEFAULT.left }}
         whileHover={{ scale: 1.05 }}
         whileDrag={{ scale: 1.1 }}
       />
