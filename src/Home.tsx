@@ -1,6 +1,13 @@
 import { useRef } from 'react';
 import FloatingCharacter from './components/FloatingCharacter.tsx';
 import Landscape from './components/Landscape.tsx';
+import csv from './assets/socials/csv.png'
+import github from './assets/socials/github.png'
+import telegram from './assets/socials/telegram.png'
+import linkedin from './assets/socials/linkedin.png'
+import gmail from './assets/socials/gmail.png'
+
+
 
 function Home() {
   const constraintsRef = useRef<HTMLDivElement>(null);
@@ -16,6 +23,14 @@ function Home() {
           <h6 className="text-2xl uppercase tracking-wide" style={{ fontFamily: 'pixelGridS' }}>
             WEBSITE DEVELOPER | UI/UX DESIGNER
           </h6>
+
+          <div className="mt-4 flex justify-end gap-4 pointer-events-auto">
+            <a href="" > <img src={csv} alt=""  /></a>
+            <a href="" > <img src={github} alt="" /></a>
+            <a href="" > <img src={telegram} alt="" /></a>
+            <a href="" > <img src={linkedin} alt="" /></a>
+            <a href="" > <img src={gmail} alt="" /></a>
+          </div>
         </div>
       </FloatingCharacter>
     </div>
