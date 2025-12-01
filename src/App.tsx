@@ -7,9 +7,9 @@ function App() {
   return (
     <div className="relative w-full min-h-screen bg-blue-100 overflow-x-hidden">
       <Header/>
-      {/* <Clouds /> */}
+      <Clouds />
       <Home />
-      <About />
+      <About z-999/>
     </div>
   );
 }

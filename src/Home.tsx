@@ -11,7 +11,7 @@ function Home() {
   const constraintsRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div ref={constraintsRef} className="relative w-full overflow-hidden">
+    <div ref={constraintsRef} className="relative z-10 w-full overflow-hidden">
       <Landscape />
       <FloatingCharacter constraintsRef={constraintsRef}>
         <div className="pointer-events-none flex flex-col gap-2 md:gap-3 text-center md:text-right text-white drop-shadow-md w-full md:ml-4">

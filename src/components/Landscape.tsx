@@ -5,11 +5,13 @@ const VIDEO_SRC = '/Landscape.webm';
 const Landscape = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [tileCount, setTileCount] = useState(3); // Start with reasonable default
+  const [tileCount, setTileCount] = useState(3);
+  const [isVisible, setIsVisible] = useState(false);
+  const videoRefs = useRef<Map<number, HTMLVideoElement>>(new Map());
 
   const indices = useMemo(() => {
     const half = Math.floor(tileCount / 2);
-    return Array.from({ length: Math.min(tileCount, 7) }, (_, i) => i - half); // Cap at 7 tiles
+    return Array.from({ length: Math.min(tileCount, 7) }, (_, i) => i - half);
   }, [tileCount]);
 
   const recalcTiles = useCallback(() => {
@@ -22,7 +24,7 @@ const Landscape = () => {
     if (!baseWidth) return;
 
     const raw = Math.ceil((container.offsetWidth + baseWidth) / baseWidth);
-    const normalized = Math.min(raw % 2 === 0 ? raw + 1 : raw, 7); // Cap at 7
+    const normalized = Math.min(raw % 2 === 0 ? raw + 1 : raw, 7);
 
     setTileCount((prev) => (prev !== normalized ? normalized : prev));
   }, []);
@@ -31,13 +33,40 @@ const Landscape = () => {
     recalcTiles();
   }, [recalcTiles]);
 
+  // Intersection Observer for play/pause on visibility
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          setIsVisible(entry.isIntersecting);
+
+          videoRefs.current.forEach((video) => {
+            if (entry.isIntersecting) {
+              video.play().catch(() => {});
+            } else {
+              video.pause();
+            }
+          });
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(container);
+
+    return () => observer.disconnect();
+  }, []);
+
   useEffect(() => {
     const timer = setTimeout(() => recalcTiles(), 100);
 
     let resizeTimeout: number;
     const handleResize = () => {
       clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(() => recalcTiles(), 250); // Increased debounce
+      resizeTimeout = setTimeout(() => recalcTiles(), 250);
     };
 
     window.addEventListener('resize', handleResize, { passive: true });
@@ -61,13 +90,20 @@ const Landscape = () => {
           return (
             <video
               key={offset}
-              ref={offset === 0 ? videoRef : null}
+              ref={(el) => {
+                if (offset === 0) videoRef.current = el;
+                if (el) {
+                  videoRefs.current.set(offset, el);
+                } else {
+                  videoRefs.current.delete(offset);
+                }
+              }}
               src={VIDEO_SRC}
-              autoPlay
+              autoPlay={isVisible}
               loop
               muted
               playsInline
-              preload={offset === 0 ? "auto" : "metadata"} // Only preload center video
+              preload={offset === 0 ? "auto" : "metadata"}
               onLoadedMetadata={offset === 0 ? handleLoadedMetadata : undefined}
               className="block h-[888px] w-auto object-cover object-bottom mx-[-2px] mt-[70px]"
               style={{

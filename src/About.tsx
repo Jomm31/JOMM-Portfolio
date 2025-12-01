@@ -1,105 +1,107 @@
-function About() {
-  return (
-    <section id="about" className="relative w-full min-h-screen bg-gradient-to-b from-[#6CDAEA] to-[#4A9FBF] py-20 px-6">
-      <div className="mx-auto max-w-6xl">
-        {/* Section Title */}
-        <h2
-          className="text-5xl md:text-6xl text-white text-center mb-12 drop-shadow-lg"
-          style={{ fontFamily: 'pixelGridL' }}
-        >
-          ABOUT ME
-        </h2>
+import { useState } from 'react';
+import charImage from './assets/char.webp';
+import frameImage from './assets/frame 1.png';
 
+// Import all coin frames
+import coin1 from './assets/coin/coin_1.png';
+import coin2 from './assets/coin/coin_2.png';
+import coin3 from './assets/coin/coin_3.png';
+import coin4 from './assets/coin/coin_4.png';
+import coin5 from './assets/coin/coin_5.png';
+import coin6 from './assets/coin/coin_6.png';
+import coin7 from './assets/coin/coin_7.png';
+import coin8 from './assets/coin/coin_8.png';
+import coin9 from './assets/coin/coin_9.png';
+import coin10 from './assets/coin/coin_10.png';
+import coin11 from './assets/coin/coin_11.png';
+import coin12 from './assets/coin/coin_12.png';
+import coin13 from './assets/coin/coin_13.png';
+import coin14 from './assets/coin/coin_14.png';
+import coin15 from './assets/coin/coin_15.png';
+import coin16 from './assets/coin/coin_16.png';
+
+const coinFrames = [coin1, coin2, coin3, coin4, coin5, coin6, coin7, coin8, coin9, coin10, coin11, coin12, coin13, coin14
+  ,coin15, coin16
+];
+
+function About() {
+  const [currentFrame, setCurrentFrame] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsAnimating(true);
+    let frame = 0;
+    const interval = setInterval(() => {
+      frame = (frame + 1) % coinFrames.length;
+      setCurrentFrame(frame);
+    }, 100); // 100ms per frame
+
+    // Store interval ID for cleanup
+    (window as any).coinInterval = interval;
+  };
+
+  const handleMouseLeave = () => {
+    setIsAnimating(false);
+    setCurrentFrame(0);
+    if ((window as any).coinInterval) {
+      clearInterval((window as any).coinInterval);
+    }
+  };
+
+  return (
+    <section id="about" className="relative z-20 w-full min-h-screen bg-gradient-to-b from-[#01293C] to-[#0F0732] py-20 px-6">
+      <div className="mx-auto max-w-7xl">
         {/* Content Container */}
-        <div className="flex flex-col lg:flex-row gap-12 items-start">
-          {/* Left Column - Image/Avatar */}
-          <div className="flex-shrink-0 w-full lg:w-1/3">
-            <div className="bg-white/20 backdrop-blur-sm rounded-lg p-6 shadow-xl">
-              <div className="aspect-square bg-gradient-to-br from-[#2AA0D6] to-[#12093B] rounded-lg flex items-center justify-center">
-                <span
-                  className="text-8xl text-white/50"
-                  style={{ fontFamily: 'pixelGridL' }}
-                >
-                  JDL
-                </span>
+        <div className="flex flex-col lg:flex-row gap-8 items-start">
+          {/* Left Column - Title and Description */}
+          <div className="flex-1 space-y-6">
+            <div className="flex items-center gap-4 mb-6">
+              <div 
+                className="relative z-30 cursor-pointer"
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              >
+                <img 
+                  src={coinFrames[currentFrame]} 
+                  alt="Coin" 
+                  className="h-[200px] mt-[-120px]"
+                  style={{ imageRendering: 'pixelated' }}
+                />
               </div>
+              <h2
+                className="text-6xl md:text-7xl text-white"
+                style={{ fontFamily: 'pixelGridL' }}
+              >
+                ABOUT ME
+              </h2>
             </div>
+
+            <p
+              className="text-xl md:text-2xl text-white leading-relaxed"
+              style={{ fontFamily: 'pixelGridS' }}
+            >
+              I'm a full stack web developer and designer with a passion for creating memorable experiences through interactive design. From clean responsive interfaces to functional backends.
+            </p>
           </div>
 
-          {/* Right Column - Bio Content */}
-          <div className="flex-1 space-y-6">
-            <div className="bg-white/20 backdrop-blur-sm rounded-lg p-8 shadow-xl">
-              <h3
-                className="text-3xl text-white mb-4"
-                style={{ fontFamily: 'pixelGridM' }}
-              >
-                Who I Am
-              </h3>
-              <p
-                className="text-lg text-white/90 leading-relaxed mb-4"
-                style={{ fontFamily: 'pixelGridS' }}
-              >
-                Hi! I'm Joemire Dave Loeremas, a passionate web developer and UI/UX designer
-                dedicated to creating beautiful, functional, and user-friendly digital experiences.
-              </p>
-              <p
-                className="text-lg text-white/90 leading-relaxed"
-                style={{ fontFamily: 'pixelGridS' }}
-              >
-                I love transforming ideas into reality through clean code and thoughtful design.
-                My goal is to build websites that not only look great but also provide seamless
-                user experiences.
-              </p>
-            </div>
-
-            {/* Skills Section */}
-            <div className="bg-white/20 backdrop-blur-sm rounded-lg p-8 shadow-xl">
-              <h3
-                className="text-3xl text-white mb-6"
-                style={{ fontFamily: 'pixelGridM' }}
-              >
-                Skills & Technologies
-              </h3>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                {[
-                  'React',
-                  'TypeScript',
-                  'Tailwind CSS',
-                  'Node.js',
-                  'UI/UX Design',
-                  'Figma',
-                  'Git',
-                  'Responsive Design',
-                  'Framer Motion',
-                ].map((skill) => (
-                  <div
-                    key={skill}
-                    className="bg-white/30 backdrop-blur-sm rounded-lg px-4 py-3 text-center text-white font-medium hover:bg-white/40 transition-colors"
-                    style={{ fontFamily: 'pixelGridS' }}
-                  >
-                    {skill}
-                  </div>
-                ))}
+          {/* Right Column - Framed Character Image */}
+          <div className="flex-shrink-0 w-full lg:w-auto">
+            <div className="relative inline-block">
+              {/* Frame */}
+              <img 
+                src={frameImage} 
+                alt="Frame" 
+                className="w-[300px] h-[300px] md:w-[350px] md:h-[350px] object-contain"
+              />
+              {/* Character inside frame */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <img 
+                  src={charImage} 
+                  alt="Joemire Dave Loeremas" 
+                  className="ml-[4px] mt-[1px] w-[259px] h-[259px] md:w-[299px] md:h-[299px] object-contain"
+                  style={{ imageRendering: 'pixelated' }}
+                />
               </div>
-            </div>
-
-            {/* Fun Facts */}
-            <div className="bg-white/20 backdrop-blur-sm rounded-lg p-8 shadow-xl">
-              <h3
-                className="text-3xl text-white mb-4"
-                style={{ fontFamily: 'pixelGridM' }}
-              >
-                Fun Facts
-              </h3>
-              <ul
-                className="space-y-2 text-lg text-white/90"
-                style={{ fontFamily: 'pixelGridS' }}
-              >
-                <li>🎮 Love creating interactive web experiences</li>
-                <li>☕ Coffee enthusiast and code optimizer</li>
-                <li>🎨 Always exploring new design trends</li>
-                <li>📚 Continuous learner and problem solver</li>
-              </ul>
             </div>
           </div>
         </div>
