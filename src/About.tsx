@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import charImage from './assets/char.webp';
 import frameImage from './assets/frame 1.png';
 
@@ -27,25 +27,35 @@ const coinFrames = [coin1, coin2, coin3, coin4, coin5, coin6, coin7, coin8, coin
 function About() {
   const [currentFrame, setCurrentFrame] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  const intervalRef = useRef<number | null>(null);
+  const shouldStopRef = useRef(false);
 
   const handleMouseEnter = () => {
-    setIsAnimating(true);
-    let frame = 0;
-    const interval = setInterval(() => {
-      frame = (frame + 1) % coinFrames.length;
-      setCurrentFrame(frame);
-    }, 100); // 100ms per frame
-
-    // Store interval ID for cleanup
-    (window as any).coinInterval = interval;
+    shouldStopRef.current = false;
+    
+    if (!isAnimating) {
+      setIsAnimating(true);
+      let frame = currentFrame;
+      
+      intervalRef.current = window.setInterval(() => {
+        frame = (frame + 1) % coinFrames.length;
+        setCurrentFrame(frame);
+        
+        // If we've completed a full cycle and should stop
+        if (frame === 0 && shouldStopRef.current) {
+          if (intervalRef.current !== null) {
+            clearInterval(intervalRef.current);
+            intervalRef.current = null;
+          }
+          setIsAnimating(false);
+        }
+      }, 100);
+    }
   };
 
   const handleMouseLeave = () => {
-    setIsAnimating(false);
-    setCurrentFrame(0);
-    if ((window as any).coinInterval) {
-      clearInterval((window as any).coinInterval);
-    }
+    // Signal that we want to stop after completing the cycle
+    shouldStopRef.current = true;
   };
 
   return (
