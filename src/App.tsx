@@ -9,7 +9,7 @@ function App() {
       <Header/>
       <Clouds />
       <Home />
-      <About z-999/>
+      <About/>
     </div>
   );
 }

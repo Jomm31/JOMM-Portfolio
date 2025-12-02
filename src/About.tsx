@@ -97,21 +97,21 @@ function About() {
           {/* Right Column - Framed Character Image */}
           <div className="flex-shrink-0 w-full lg:w-auto">
             <div className="relative inline-block">
-              {/* Frame */}
-              <img 
-                src={frameImage} 
-                alt="Frame" 
-                className="w-[300px] h-[300px] md:w-[350px] md:h-[350px] object-contain"
-              />
-              {/* Character inside frame */}
+              {/* Character behind frame */}
               <div className="absolute inset-0 flex items-center justify-center">
                 <img 
                   src={charImage} 
                   alt="Joemire Dave Loeremas" 
-                  className="ml-[4px] mt-[1px] w-[259px] h-[259px] md:w-[299px] md:h-[299px] object-contain"
+                  className="w-[259px] h-[259px] md:w-[299px] md:h-[299px] object-contain"
                   style={{ imageRendering: 'pixelated' }}
                 />
               </div>
+              {/* Frame on top */}
+              <img 
+                src={frameImage} 
+                alt="Frame" 
+                className="relative z-10 w-[300px] h-[300px] md:w-[350px] md:h-[350px] object-contain"
+              />
             </div>
           </div>
         </div>
