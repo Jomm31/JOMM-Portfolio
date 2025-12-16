@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+html {
+  scroll-behavior: smooth;
+}
+
 /* medium font */
 @font-face {
   font-family: 'pixelGridM';
