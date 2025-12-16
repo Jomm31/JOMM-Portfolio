@@ -59,7 +59,7 @@ function About() {
   };
 
   return (
-    <section id="about" className="relative z-20 w-full min-h-screen bg-gradient-to-b from-[#01293C] to-[#0F0732] py-20 px-6">
+    <section id="about" className="relative z-20 w-full bg-gradient-to-b from-[#01293C] to-[#0F0732] py-20 px-6">
       <div className="mx-auto max-w-7xl">
         {/* Content Container */}
         <div className="flex flex-col lg:flex-row gap-8 items-start">
