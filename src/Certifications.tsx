@@ -23,8 +23,8 @@ function Certifications(){
         { name: 'Java Certification', image: java, badges: [javaBadge] },
         { name: 'Database Certification', image: database, badges: [sqlBadge] },
         { name: 'Javasdript Certification', image: javascript, badges: [jsBadge] },
-        { name: 'Responsive Certification', image: responsive, badges: [htmlBadge, cssBadge, jsBadge] },
         { name: 'webdev Certification', image: webdev, badges: [htmlBadge, cssBadge, jsBadge] },
+        { name: 'Responsive Certification', image: responsive, badges: [htmlBadge, cssBadge, jsBadge] },
         { name: 'react Certification', image: react, badges: [reactBadge] },
     ];
 
