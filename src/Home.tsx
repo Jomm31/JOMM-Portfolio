@@ -16,7 +16,7 @@ function Home() {
       <FloatingCharacter constraintsRef={constraintsRef}>
         <div className="pointer-events-none flex flex-col gap-2 md:gap-3 text-center md:text-right text-white drop-shadow-md w-full md:ml-4">
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight" style={{ fontFamily: 'pixelGridL' }}>
-            HI, I'M JOEMIRE<br />DAVE LOEREMAS
+            HI, I'M JOEMIRE<br />DAVE LOREMAS
           </h1>
           <h6 className="text-base sm:text-xl md:text-2xl uppercase tracking-wide" style={{ fontFamily: 'pixelGridS' }}>
             WEBSITE DEVELOPER | UI/UX DESIGNER

@@ -16,6 +16,17 @@ import pythonBadge from './assets/programming_lang/python.png'
 import sqlBadge from './assets/programming_lang/sql.png'
 import reactBadge from './assets/programming_lang/react.png'
 
+// Badge descriptions
+const badgeDescriptions: Record<string, string> = {
+    [htmlBadge]: 'HTML - For structuring web pages',
+    [cssBadge]: 'CSS - For designing & styling websites',
+    [jsBadge]: 'JavaScript - For web interactivity',
+    [javaBadge]: 'Java - For enterprise applications',
+    [pythonBadge]: 'Python - For data science & backend',
+    [sqlBadge]: 'SQL - For database management',
+    [reactBadge]: 'React - For building interactive UIs',
+};
+
 function Certifications(){
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
@@ -40,7 +51,13 @@ function Certifications(){
                         {/* Badges on the left */}
                         <div className="flex flex-col gap-2 p-3 bg-[#0F0732] justify-center">
                             {cert.badges.map((badge, i) => (
-                                <img key={i} src={badge} alt="Badge" className="w-10 h-10 object-contain" />
+                                <div key={i} className="relative group">
+                                    <img src={badge} alt="Badge" className="w-10 h-10 object-contain cursor-pointer" />
+                                    <div className="absolute left-full top-1/2 -translate-y-1/2 ml-2 px-3 py-1 bg-[#1a1a3a] text-white text-xs rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-10" style={{ fontFamily: 'pixelGridS' }}>
+                                        {badgeDescriptions[badge] || 'Technology'}
+                                        <div className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-[#1a1a3a]"></div>
+                                    </div>
+                                </div>
                             ))}
                         </div>
                         {/* Certificate image on the right */}

@@ -15,6 +15,22 @@ import vite from './assets/programming_lang/vite.png'
 import sass from './assets/programming_lang/sass.png'
 import sklearn from './assets/programming_lang/sklearn.png'
 
+// Badge descriptions
+const badgeDescriptions: Record<string, string> = {
+    [python]: 'Python - For data science & backend development',
+    [react]: 'React - For building interactive UIs',
+    [js]: 'JavaScript - For web interactivity',
+    [html]: 'HTML - For structuring web pages',
+    [css]: 'CSS - For designing & styling websites',
+    [node]: 'Node.js - For server-side JavaScript',
+    [php]: 'PHP - For server-side scripting',
+    [sql]: 'SQL - For database management',
+    [java]: 'Java - For enterprise applications',
+    [vite]: 'Vite - For fast development builds',
+    [sass]: 'Sass - For advanced CSS styling',
+    [sklearn]: 'Scikit-learn - For machine learning',
+};
+
 function Projects() {
     const [isExpanded, setIsExpanded] = useState(false);
 
@@ -63,7 +79,13 @@ function Projects() {
                                 <p className="text-xl text-white text-center" style={{ fontFamily: 'pixelGridM' }}>{project.name}</p>
                                 <div className="flex gap-2 flex-wrap justify-center">
                                     {project.badges.map((badge: string, i: number) => (
-                                        <img key={i} src={badge} alt="Badge" className="w-8 h-8 object-contain" />
+                                        <div key={i} className="relative group">
+                                            <img src={badge} alt="Badge" className="w-8 h-8 object-contain cursor-pointer" />
+                                            <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1 bg-[#0F0732] text-white text-xs rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-10" style={{ fontFamily: 'pixelGridS' }}>
+                                                {badgeDescriptions[badge] || 'Technology'}
+                                                <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-[#0F0732]"></div>
+                                            </div>
+                                        </div>
                                     ))}
                                 </div>
                             </div>
