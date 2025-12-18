@@ -74,12 +74,13 @@ function About() {
                 <img 
                   src={coinFrames[currentFrame]} 
                   alt="Coin" 
-                  className="h-[200px] mt-[-120px]"
+                  className="h-[200px] mt-[-150px]"
                   style={{ imageRendering: 'pixelated' }}
                 />
               </div>
               <h2
-                className="text-6xl md:text-7xl text-white"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-8 text-center"
+                
                 style={{ fontFamily: 'pixelGridL' }}
               >
                 ABOUT ME

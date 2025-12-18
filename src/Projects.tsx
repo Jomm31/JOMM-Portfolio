@@ -52,8 +52,8 @@ function Projects() {
     const visibleProjects = isExpanded ? projects : projects.slice(0, 6);
 
     return (
-        <section id="projects" className="relative z-20 w-full min-h-screen bg-gradient-to-b from-[#0F0732] to-[#1a0a4a] py-20 px-6">
-            <h1 className="text-6xl md:text-7xl text-white mb-8 text-center" style={{ fontFamily: 'pixelGridL' }}>
+        <section id="projects" className="relative z-20 w-full bg-gradient-to-b from-[#0F0732] to-[#1a0a4a] py-20 px-6">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-8 text-center" style={{ fontFamily: 'pixelGridL' }}>
                 PROJECTS
             </h1>
             
@@ -76,7 +76,7 @@ function Projects() {
                                 {/* Project image goes here */}
                             </div>
                             <div className="p-4 flex flex-col gap-3">
-                                <p className="text-xl text-white text-center" style={{ fontFamily: 'pixelGridM' }}>{project.name}</p>
+                                <p className="text-base sm:text-lg md:text-xl text-white text-center" style={{ fontFamily: 'pixelGridM' }}>{project.name}</p>
                                 <div className="flex gap-2 flex-wrap justify-center">
                                     {project.badges.map((badge: string, i: number) => (
                                         <div key={i} className="relative group">
